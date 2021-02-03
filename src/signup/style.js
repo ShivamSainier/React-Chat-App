@@ -27,7 +27,7 @@ const styles = theme => ({
     hasAccountHeader: {
       width: '100%'
     },
-    logInLink: {
+    signUpLink: {
       width: '100%',
       textDecoration: 'none',
       color: '#303f9f',
