@@ -4,7 +4,7 @@ import LoginComponent from "./login/Login"
 import DashBoardComponent from "./dashboad/Dashboard"
 import SignupComponent from "./signup/Signup"
 import {Route,BrowserRouter as Router} from 'react-router-dom'
-
+import {Link} from "react-router-dom"
 
 const app=firebase.initializeApp({
   apiKey: "AIzaSyCvhjblyTONlxmTTC3zIy6Ag16EJuLy44Y",
@@ -20,6 +20,7 @@ const routing=(
     <Route path="/login" component={LoginComponent}></Route>
     <Route path="/signup" component={SignupComponent}></Route>
     <Route path="/dashboard" component={DashBoardComponent}></Route> 
+  
   </Router>
 )
 
@@ -27,7 +28,7 @@ function App() {
   return (
     <div className="App">
     {routing}
-
+   
     </div>
   );
 }
