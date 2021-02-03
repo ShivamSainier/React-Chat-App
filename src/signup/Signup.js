@@ -3,6 +3,7 @@ import {Paper,FormControl,InputLabel,Input,Typography,Button ,CssBaseline } from
 import { withStyles } from '@material-ui/core/styles';
 import styles from './style';
 import firebase from 'firebase'
+import {Link} from "react-router-dom"
 
 
 
@@ -17,7 +18,6 @@ class SignupComponent extends React.Component{
              signupError:""
         }
     }
-    
     
     render(){
         const { classes } = this.props;
@@ -46,13 +46,13 @@ class SignupComponent extends React.Component{
           </form>
           { 
             this.state.signupError ? 
-            <Typography className={classes.errorText} component='h5' variant='h6'>
+            <h4 className={classes.errorText} component='h5' variant='h6'>
               {this.state.signupError}
-            </Typography> :
+            </h4> :
             null
           }
           <h5 className={classes.hasAccountHeader}>Already Have An Account?</h5>
-          
+          <Link  className={classes.signUpLink} to="/login">Log in</Link>
         </Paper>
       </main>
             </div>
@@ -87,16 +87,16 @@ class SignupComponent extends React.Component{
               email:authres.user.email
             }
             firebase.firestore().collection('users').doc(this.state.email)
-            .set(usrobj).then(()=>{this.props.history.push('/dashboard')
+            .set(usrobj).then(()=>{this.props.history.push('/login  ')
           },dbError=>{
             console.log(dbError)
-            this.setState({signupError:"db error"})
+            this.setState({signupError:dbError.message})
           }
           )
 
           },authError=>{
-            alert(authError)
-            this.setState({signupError:"Authentication Error Found"})
+            console.log('auth arror',authError)
+            this.setState({signupError:authError.message})
           })
       }
 }
