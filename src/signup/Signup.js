@@ -2,6 +2,7 @@ import React from 'react'
 import {Paper,FormControl,InputLabel,Input,Typography,Button ,CssBaseline } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './style';
+import firebase from 'firebase'
 
 
 
@@ -79,7 +80,24 @@ class SignupComponent extends React.Component{
         if (!this.formisValid()){
             this.setState({passwordConfirmation:"password do not match"})
         }
-    }
+        firebase.auth().createUserWithEmailAndPassword(this.state.email,this.state.password)
+        .then(
+          authres=>{
+            const usrobj={
+              email:authres.user.email
+            }
+            firebase.firestore().collection('users').doc(this.state.email)
+            .set(usrobj).then(()=>{this.props.history.push('/dashboard')
+          },dbError=>{
+            console.log(dbError)
+            this.setState({signupError:"db error"})
+          }
+          )
 
+          },authError=>{
+            alert(authError)
+            this.setState({signupError:"Authentication Error Found"})
+          })
+      }
 }
 export default withStyles(styles)(SignupComponent)
