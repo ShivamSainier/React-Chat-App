@@ -1,12 +1,13 @@
 import React from 'react'
+import Chat from "../chat/Chat"
 
 class DashBoardComponent extends React.Component{
+    
     render(){
         return (
             <>
-            <h3>
-                Dashboard
-            </h3>
+            <h2>Hello from the dashboard</h2>
+                <Chat />
             </>
 
         )
