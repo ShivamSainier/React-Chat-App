@@ -75,10 +75,11 @@ class SignupComponent extends React.Component{
         
     }
     submitSignup(e){
-        e.preventDefault()
+      e.preventDefault()
+        
         console.log(this.state)
         if (!this.formisValid()){
-            this.setState({passwordConfirmation:"password do not match"})
+            this.setState({signupError:'Password Do Not Match'})
         }
         firebase.auth().createUserWithEmailAndPassword(this.state.email,this.state.password)
         .then(
@@ -87,7 +88,7 @@ class SignupComponent extends React.Component{
               email:authres.user.email
             }
             firebase.firestore().collection('users').doc(this.state.email)
-            .set(usrobj).then(()=>{this.props.history.push('/login  ')
+            .set(usrobj).then(()=>{this.props.history.push('/dashboard')
           },dbError=>{
             console.log(dbError)
             this.setState({signupError:dbError.message})
