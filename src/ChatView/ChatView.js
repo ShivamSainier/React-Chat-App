@@ -12,15 +12,18 @@ export class ChatView extends Component {
         else{
             return (
                 <div>
-                <main className={classes.contents}>
+                <div className={classes.chatHeader}>
+                {
+                    chat.users.filter(_user=>_user!==user)
+                }
+                </div>
+                <main className={classes.content}>
                     {
-                         chat.messages.map((_msg,_index)=>{
+                         chat.messages.map((msg,_index)=>{
                              return (
-                                 <div key={_index} className={_msg.sender===user?classes.userSent:classes.friendSent}> 
-                                 {
-                                        _msg.message
-                                        
-                                 }</div>
+                                 <div key={_index} className={msg.sender===user ? classes.userSent:classes.friendSent}> 
+                                 { msg.message }
+                                </div>
                              )    
                          })
                     }
