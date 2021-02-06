@@ -15,32 +15,32 @@ const styles = theme => ({
     userSent: {
       float: 'left',
       clear: 'both',
-      padding: '20px',
+      padding: '16px',
       boxSizing: 'border-box',
       wordWrap: 'break-word',
       marginTop: '10px',
       backgroundColor: '#707BC4',
       color: 'white',
-      width: '300px',
+      width: '250px',
       borderRadius: '10px'
     },
   
     friendSent: {
       float: 'right',
       clear: 'both',
-      padding: '20px',
+      padding: '16px',
       boxSizing: 'border-box',
       wordWrap: 'break-word',
       marginTop: '10px',
       backgroundColor: '#707BC4',
       color: 'white',
-      width: '300px',
+      width: '250px',
       borderRadius: '10px'
     },
   
     chatHeader: {
       width: 'calc(100% - 301px)',
-      height: '50px',
+      height: '40px',
       backgroundColor: '#344195',
       position: 'fixed',
       marginLeft: '301px',
