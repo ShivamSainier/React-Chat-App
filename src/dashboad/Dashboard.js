@@ -24,7 +24,7 @@ class DashBoardComponent extends React.Component{
         const {classes}=this.props
         return (
             <>
-            <h2>Hello from the dashboard</h2>   
+        
                 <Chat  newChatBtnClickedFn={this.newChatBtnClicked} selectChatFn={this.selectChat}
                 chat={this.state.chats} 
                 userEmail={this.state.email}
