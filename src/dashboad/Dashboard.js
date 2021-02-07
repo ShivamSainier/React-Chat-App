@@ -6,6 +6,8 @@ import styles from "./style"
 import firebase from 'firebase'
 import {Link} from "react-router-dom"
 import ChatView from "../ChatView/ChatView"
+import ChatTextBox from "../chattextbox/chatTextBox"
+
 
 
 class DashBoardComponent extends React.Component{
@@ -28,10 +30,25 @@ class DashBoardComponent extends React.Component{
                 <Chat  newChatBtnClickedFn={this.newChatBtnClicked} selectChatFn={this.selectChat}
                 chat={this.state.chats} 
                 userEmail={this.state.email}
-                 selectedChatIndex={this.state.selectedChat}/>
+                 selectedChatIndex={this.state.selectedChat}> </Chat>
+                 {
+                     this.state.newChatFromVisible?
+                     null:
                  <ChatView 
                  user={this.state.email}
                  chat={this.state.chats[this.state.selectedChat]}> </ChatView>
+                 }
+                 {
+                     this.state.selectedChat!==null ?
+                     <ChatTextBox submitMessageFn={this.submitMessage}></ChatTextBox> :
+                     null
+
+                 }
+                      
+                    
+
+                
+                 
                  <Button className={classes.signOutBtn} onClick={this.signOut}>sign Out</Button>
 
              </>
@@ -70,5 +87,10 @@ class DashBoardComponent extends React.Component{
     signOut=()=>{
         firebase.auth().signOut() 
     }
+    submitMessage=(message)=>{
+        const docKey=this.buildDockey(this.state.chats[this.state.selectedChat].users.filter(_usr=>_usr!==this.state.email)[0]);
+        console.log(docKey)
+    }
+    buildDockey=(friend)=>[this.state.email,friend].sort().join(':');
 }
 export default withStyles(styles)(DashBoardComponent)
