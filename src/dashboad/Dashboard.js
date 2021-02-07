@@ -39,16 +39,10 @@ class DashBoardComponent extends React.Component{
                  chat={this.state.chats[this.state.selectedChat]}> </ChatView>
                  }
                  {
-                     this.state.selectedChat!==null ?
+                    this.state.selectedChat!==null ?
                      <ChatTextBox submitMessageFn={this.submitMessage}></ChatTextBox> :
                      null
-
-                 }
-                      
-                    
-
-                
-                 
+                     }
                  <Button className={classes.signOutBtn} onClick={this.signOut}>sign Out</Button>
 
              </>
@@ -87,9 +81,21 @@ class DashBoardComponent extends React.Component{
     signOut=()=>{
         firebase.auth().signOut() 
     }
-    submitMessage=(message)=>{
+    submitMessage=(msg)=>{
         const docKey=this.buildDockey(this.state.chats[this.state.selectedChat].users.filter(_usr=>_usr!==this.state.email)[0]);
-        console.log(docKey)
+        console.log('msg',msg)
+        firebase.firestore()
+        .collection('chats')
+        .doc(docKey)
+        .update({
+            messages:firebase.firestore.FieldValue.arrayUnion({
+                
+                 sender:this.state.email,
+                 message:msg,
+                 timestamp:Date.now()
+            }),
+            receieverHasRead:false
+        })
     }
     buildDockey=(friend)=>[this.state.email,friend].sort().join(':');
 }
