@@ -6,6 +6,14 @@ import styles from "./style"
 import React, { Component } from 'react'
 
 export class ChatTextBox extends Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             chatText:""
+        }
+    }
+    
     
     render() {
         const {classes}=this.props
@@ -21,13 +29,23 @@ export class ChatTextBox extends Component {
 
     }
     userTyping(e){
+        e.typeCode==13?
+        this.submitMessage():
         console.log("user typing")
+        this.setState({chatText:e.target.value})
+
     }
+    messageValid=(txt)=> txt && txt.replace(/\s/g,' ').length;
     userClickedInput(e){
         console.log('user clicked input')
     }
     submitMessage=()=>{
+        
         console.log('submit')
+        if (this.messageValid(this.state.chatText)){
+            this.props.submitMessageFn(this.state.chatText)
+            document.getElementById('chattextbox').value=" ";
+        }
     }
 }
 
