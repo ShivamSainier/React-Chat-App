@@ -53,9 +53,26 @@ class DashBoardComponent extends React.Component{
         this.setState({ newChatFromVisible:true,selectChat:null})
         console.log('new chat button clicked')
     }
-    selectChat=(chatIndex)=>{
+    selectChat= async (chatIndex)=>{
         console.log('index',chatIndex)
-       this.setState({selectedChat:chatIndex})
+       await this.setState({selectedChat:chatIndex})
+       this.messageRead();
+    }
+    clickedChatwhereNotSender=(chatIndex)=>this.state.chats[chatIndex].messages[this.state.chats[chatIndex].messages.length-1].sender!==this.state.email
+
+    messageRead=()=>{
+        const docKey=this.buildDockey(this.state.chats[this.state.selectedChat].users.filter(_usr=>_usr!==this.state.email)[0])
+        if(this.clickedChatwhereNotSender(this.state.selectedChat)){
+            firebase
+            .firestore()
+            .collection('chats')
+            .doc(docKey)
+            .update({receieverHasRead:true})
+        }
+        else{
+            console.log('clicked message where the user was the sender')
+        }
+        
     }
     componentDidMount=()=>{
         firebase.auth().onAuthStateChanged( async _usr=>{
