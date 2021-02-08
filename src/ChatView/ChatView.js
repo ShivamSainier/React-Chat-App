@@ -21,7 +21,7 @@ export class ChatView extends Component {
                     {
                          chat.messages.map((msg,_index)=>{
                              return (
-                                 <div key={_index} className={msg.sender===user ? classes.userSent:classes.friendSent}> 
+                                 <div key={_index} className={msg.sender===user ? classes.friendSent:classes.userSent}> 
                                  { msg.message }
                                 </div>
                              )    
