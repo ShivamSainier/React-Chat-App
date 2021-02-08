@@ -35,6 +35,10 @@ class Chat extends React.Component {
                              </>
                          }>
                          </ListItemText>
+                         {
+                             _chat.receiverHasRead===false && ! this.userIsSender(_chat)?
+                              <Typography className={classes.unreadMessage}>N</Typography>:null
+                         }
                         
                             </ListItem>
  
@@ -54,6 +58,7 @@ class Chat extends React.Component {
         this.props.selectChatFn(index)
 
     }
+    userIsSender=(chat)=>chat.messages[chat.messages.length-1].sender===this.props.userEmail
 }
 
 export default withStyles(styles)(Chat)
